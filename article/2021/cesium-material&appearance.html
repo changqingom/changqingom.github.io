@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+      Cesium Material and Appearance | linyue
+    </title>
+    <meta name="description" content="My article.">
+    <link rel="stylesheet" href="/article/assets/style.56d02f33.css">
+    <link rel="modulepreload" href="/article/assets/Home.5e73a30d.js">
+    <link rel="modulepreload" href="/article/assets/app.653a9468.js">
+    <link rel="modulepreload" href="/article/assets/2021_cesium-material&appearance.md.7d97c04b.lean.js">
+    <link rel="modulepreload" href="/article/assets/app.653a9468.js">
+    <link rel="icon" href="./img/icon.png">
+    
+  </head>
+  <body>
+    <div id="app"><!--[--><div class="theme"><header class="nav-bar" data-v-6e7c0b86><div class="sidebar-button" data-v-6e7c0b86><svg class="icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z" class></path></svg></div><a class="nav-bar-title" href="/article/" aria-label="linyue, back to home" data-v-6e7c0b86 data-v-76c79d52><!----> linyue</a><div class="flex-grow" data-v-6e7c0b86></div><div class="nav" data-v-6e7c0b86><nav class="nav-links" data-v-6e7c0b86 data-v-f465d38e><!--[--><div class="item" data-v-f465d38e><div class="nav-link" data-v-f465d38e data-v-99f6c566><a class="item" href="/article/" data-v-99f6c566>Article <!----></a></div></div><!--]--><!----><div class="item" data-v-f465d38e><div class="nav-link" data-v-f465d38e data-v-99f6c566><a class="item isExternal" href="https://github.com/changqingom/blog" target="_blank" rel="noopener noreferrer" data-v-99f6c566>GitHub <svg class="icon outbound" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15" data-v-99f6c566><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div></div></nav></div><!--[--><!--]--></header><aside class="sidebar" data-v-58e261f2><nav class="nav-links nav" data-v-58e261f2 data-v-f465d38e><!--[--><div class="item" data-v-f465d38e><div class="nav-link" data-v-f465d38e data-v-99f6c566><a class="item" href="/article/" data-v-99f6c566>Article <!----></a></div></div><!--]--><!----><div class="item" data-v-f465d38e><div class="nav-link" data-v-f465d38e data-v-99f6c566><a class="item isExternal" href="https://github.com/changqingom/blog" target="_blank" rel="noopener noreferrer" data-v-99f6c566>GitHub <svg class="icon outbound" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15" data-v-99f6c566><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div></div></nav><!--[--><!--]--><ul class="sidebar-links" data-v-58e261f2><!--[--><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><p class="sidebar-link-item" data-v-58e261f2>2021</p><ul class="sidebar-links" data-v-58e261f2><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="/article/2021/cesium-line" data-v-58e261f2>Cesium线相关整理</a><!----></li><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="/article/2021/cesium-polygon" data-v-58e261f2>Cesium面相关整理</a><!----></li><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="/article/2021/coordinate-system" data-v-58e261f2>GIS坐标系整理</a><!----></li><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item active" href="/article/2021/cesium-material&amp;appearance" data-v-58e261f2>Cesium材料与外观相关整理</a><ul class="sidebar-links" data-v-58e261f2><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="#cesium-material" data-v-58e261f2>Cesium Material</a><ul class="sidebar-links" data-v-58e261f2><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="#材料注册与使用" data-v-58e261f2>材料注册与使用</a><!----></li></ul></li><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="#cesium-materialproperty" data-v-58e261f2>Cesium MaterialProperty</a><!----></li><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="#cesium-appearance" data-v-58e261f2>Cesium Appearance</a><!----></li></ul></li><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="/article/2021/cesium-geometry" data-v-58e261f2>Cesium简单几何渲染</a><!----></li><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="/article/2021/mathematics-for-cg" data-v-58e261f2>CG数学基础整理</a><!----></li></ul></li><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><p class="sidebar-link-item" data-v-58e261f2>2022</p><ul class="sidebar-links" data-v-58e261f2><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="/article/2022/ol-heatmap" data-v-58e261f2>Openlayers@6.x热力图绘制分析</a><!----></li></ul></li><!--]--></ul><!--[--><!--]--></aside><!-- TODO: make this button accessible --><div class="sidebar-mask"></div><main class="page" data-v-d36a7fda><div class="container" data-v-d36a7fda><!--[--><!--]--><div class="content" data-v-d36a7fda><div data-v-d36a7fda><h1 id="cesium-material-and-appearance"><a class="header-anchor" href="#cesium-material-and-appearance" aria-hidden="true">#</a> Cesium Material and Appearance</h1><h2 id="cesium-material"><a class="header-anchor" href="#cesium-material" aria-hidden="true">#</a> Cesium Material</h2><blockquote><p>A Material defines surface appearance through a combination of diffuse, specular, normal, emission, and alpha components. These values are specified using a JSON schema called Fabric which gets parsed and assembled into glsl shader code behind-the-scenes. Check out the <a href="https://github.com/CesiumGS/cesium/wiki/Fabric" target="_blank" rel="noopener noreferrer">wiki page</a> for more details on Fabric.</p></blockquote><p>材料组合了颜色光照透明度等并传入着色器中参与渲染流程</p><h3 id="材料注册与使用"><a class="header-anchor" href="#材料注册与使用" aria-hidden="true">#</a> 材料注册与使用</h3><p><code>Cesium</code>默认全局注册了一些常用材料,后续扩展自定义的材料可使用如下方式:</p><p><code>fabric</code>对象中 <code>components</code> 与 <code>source</code> 可二选一进行材料内容的设置</p><p><a href="https://github.com/CesiumGS/cesium/wiki/Fabric#components" target="_blank" rel="noopener noreferrer">Fabric Components 描述</a></p><p><a href="https://github.com/CesiumGS/cesium/wiki/Fabric#source" target="_blank" rel="noopener noreferrer">Fabric Source 描述</a></p><div class="language-javascript"><pre><code><span class="token comment">// 全局注册初始化</span>
+Material<span class="token punctuation">.</span>ExampleType <span class="token operator">=</span> <span class="token string">&quot;exampleType&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> fabric <span class="token operator">=</span> <span class="token punctuation">{</span>
+  type<span class="token operator">:</span> Material<span class="token punctuation">.</span>ExampleType<span class="token punctuation">,</span>
+  uniforms<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token comment">// ....</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  components<span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token comment">// ...</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  source<span class="token operator">:</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment">// 仅注册</span>
+Material<span class="token punctuation">.</span>_materialCache<span class="token punctuation">.</span><span class="token function">addMaterial</span><span class="token punctuation">(</span>Material<span class="token punctuation">.</span>ExampleType<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  fabric<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 同时注册与创建</span>
+<span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>Material</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  fabric<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 创建</span>
+Cesium<span class="token punctuation">.</span>Material<span class="token punctuation">.</span><span class="token function">fromType</span><span class="token punctuation">(</span>Material<span class="token punctuation">.</span>ExampleType<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 设置 uniforms</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><hr><h2 id="cesium-materialproperty"><a class="header-anchor" href="#cesium-materialproperty" aria-hidden="true">#</a> Cesium MaterialProperty</h2><blockquote><p>The interface for all Property objects that represent Material uniforms. This type defines an interface and cannot be instantiated directly.</p></blockquote><p>用于设置<code>Entity</code>对象材料属性的接口</p><p>可实现该接口用于材料的动画效果</p><p><strong>接口签名</strong></p><div class="language-typescript"><pre><code><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">MaterialProperty</span> <span class="token punctuation">{</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment">/**
+     * Gets a value indicating if this property is constant.  A property is considered
+    constant if getValue always returns the same result for the current definition.
+     * 标志getValue方法是否返回值永远相同
+     */</span>
+    <span class="token keyword">readonly</span> isConstant<span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+    <span class="token comment">/**
+     * Gets the event that is raised whenever the definition of this property changes.
+    The definition is considered to have changed if a call to getValue would return
+    a different result for the same time.
+     * 材料属性定义的属性发生变更时触发该事件
+     */</span>
+    <span class="token keyword">readonly</span> definitionChanged<span class="token operator">:</span> Event<span class="token punctuation">;</span>
+    <span class="token comment">/**
+     * Gets the {@link Material} type at the provided time.
+     * 获取材料类型
+     * @param time - The time for which to retrieve the type.
+     * @returns The type of material.
+     */</span>
+    <span class="token function">getType</span><span class="token punctuation">(</span>time<span class="token operator">:</span> JulianDate<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">string</span><span class="token punctuation">;</span>
+    <span class="token comment">/**
+     * Gets the value of the property at the provided time.
+     * 获取传入时间的属性值
+     * @param time - The time for which to retrieve the value.
+     * @param [result] - The object to store the value into, if omitted, a new instance is created and returned.
+     * @returns The modified result parameter or a new instance if the result parameter was not supplied.
+     */</span>
+    <span class="token function">getValue</span><span class="token punctuation">(</span>time<span class="token operator">:</span> JulianDate<span class="token punctuation">,</span> result<span class="token operator">?</span><span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">any</span><span class="token punctuation">;</span>
+    <span class="token comment">/**
+     * Compares this property to the provided property and returns
+    &lt;code&gt;true&lt;/code&gt; if they are equal, &lt;code&gt;false&lt;/code&gt; otherwise.
+     * 判断两个属性是否相同
+     * @param [other] - The other property.
+     * @returns &lt;code&gt;true&lt;/code&gt; if left and right are equal, &lt;code&gt;false&lt;/code&gt; otherwise.
+     */</span>
+    <span class="token function">equals</span><span class="token punctuation">(</span>other<span class="token operator">?</span><span class="token operator">:</span> Property<span class="token punctuation">)</span><span class="token operator">:</span> <span class="token builtin">boolean</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><hr><h2 id="cesium-appearance"><a class="header-anchor" href="#cesium-appearance" aria-hidden="true">#</a> Cesium Appearance</h2><blockquote><p>An appearance defines the full GLSL vertex and fragment shaders and the render state used to draw a Primitive. All appearances implement this base Appearance interface.</p></blockquote><p>抽象接口,用以定义绘制<code>Primitive</code>时用到的顶点,片段着色器和渲染状态.</p><p><code>Cesium.MaterialAppearance</code>实现了该接口</p></div></div><footer class="page-footer" data-v-d36a7fda data-v-5a019cc9><div class="edit" data-v-5a019cc9><div class="edit-link" data-v-5a019cc9 data-v-fb0131f2><!----></div></div><div class="updated" data-v-5a019cc9><p class="last-updated" data-v-5a019cc9 data-v-52854a16><span class="prefix" data-v-52854a16>最后更新:</span><span class="datetime" data-v-52854a16></span></p></div></footer><div class="next-and-prev-link" data-v-d36a7fda data-v-6683615c><div class="container" data-v-6683615c><div class="prev" data-v-6683615c><a class="link" href="/article/2021/coordinate-system" data-v-6683615c><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" class="icon icon-prev" data-v-6683615c><path d="M19,11H7.4l5.3-5.3c0.4-0.4,0.4-1,0-1.4s-1-0.4-1.4,0l-7,7c-0.1,0.1-0.2,0.2-0.2,0.3c-0.1,0.2-0.1,0.5,0,0.8c0.1,0.1,0.1,0.2,0.2,0.3l7,7c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3c0.4-0.4,0.4-1,0-1.4L7.4,13H19c0.6,0,1-0.4,1-1S19.6,11,19,11z"></path></svg><span class="text" data-v-6683615c>GIS坐标系整理</span></a></div><div class="next" data-v-6683615c><a class="link" href="/article/2021/cesium-geometry" data-v-6683615c><span class="text" data-v-6683615c>Cesium简单几何渲染</span><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" class="icon icon-next" data-v-6683615c><path d="M19.9,12.4c0.1-0.2,0.1-0.5,0-0.8c-0.1-0.1-0.1-0.2-0.2-0.3l-7-7c-0.4-0.4-1-0.4-1.4,0s-0.4,1,0,1.4l5.3,5.3H5c-0.6,0-1,0.4-1,1s0.4,1,1,1h11.6l-5.3,5.3c-0.4,0.4-0.4,1,0,1.4c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3l7-7C19.8,12.6,19.9,12.5,19.9,12.4z"></path></svg></a></div></div></div><!--[--><!--]--></div></main></div><!----><!--]--></div>
+    <script>__VP_HASH_MAP__ = JSON.parse("{\"index.md\":\"7d9bcb14\",\"2021_cesium-geometry.md\":\"1d1ad9d9\",\"2021_cesium-line.md\":\"44e9a1bc\",\"2021_cesium-material&appearance.md\":\"7d97c04b\",\"2021_cesium-polygon.md\":\"50819e48\",\"2021_coordinate-system.md\":\"8c3c8b03\",\"2021_index.md\":\"9287f951\",\"2021_mathematics-for-cg.md\":\"fcf9c302\",\"2022_ol-heatmap.md\":\"358485c2\"}")</script>
+    <script type="module" async src="/article/assets/app.653a9468.js"></script>
+  </body>
+</html>

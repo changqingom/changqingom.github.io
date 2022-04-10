@@ -1,0 +1,1 @@
+import{o as n,c as s,a}from"./app.653a9468.js";const p='{"title":"Cesium Geometry 基础渲染","description":"","frontmatter":{},"relativePath":"2021/cesium-geometry.md","lastUpdated":1638174346374}',t={},o=a('',4);t.render=function(a,p,t,e,c,u){return n(),s("div",null,[o])};export default t;export{p as __pageData};

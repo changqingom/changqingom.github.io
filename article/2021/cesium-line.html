@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+      Cesium线相关整理 | linyue
+    </title>
+    <meta name="description" content="My article.">
+    <link rel="stylesheet" href="/article/assets/style.56d02f33.css">
+    <link rel="modulepreload" href="/article/assets/Home.5e73a30d.js">
+    <link rel="modulepreload" href="/article/assets/app.653a9468.js">
+    <link rel="modulepreload" href="/article/assets/2021_cesium-line.md.44e9a1bc.lean.js">
+    <link rel="modulepreload" href="/article/assets/app.653a9468.js">
+    <link rel="icon" href="./img/icon.png">
+    
+  </head>
+  <body>
+    <div id="app"><!--[--><div class="theme"><header class="nav-bar" data-v-6e7c0b86><div class="sidebar-button" data-v-6e7c0b86><svg class="icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z" class></path></svg></div><a class="nav-bar-title" href="/article/" aria-label="linyue, back to home" data-v-6e7c0b86 data-v-76c79d52><!----> linyue</a><div class="flex-grow" data-v-6e7c0b86></div><div class="nav" data-v-6e7c0b86><nav class="nav-links" data-v-6e7c0b86 data-v-f465d38e><!--[--><div class="item" data-v-f465d38e><div class="nav-link" data-v-f465d38e data-v-99f6c566><a class="item" href="/article/" data-v-99f6c566>Article <!----></a></div></div><!--]--><!----><div class="item" data-v-f465d38e><div class="nav-link" data-v-f465d38e data-v-99f6c566><a class="item isExternal" href="https://github.com/changqingom/blog" target="_blank" rel="noopener noreferrer" data-v-99f6c566>GitHub <svg class="icon outbound" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15" data-v-99f6c566><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div></div></nav></div><!--[--><!--]--></header><aside class="sidebar" data-v-58e261f2><nav class="nav-links nav" data-v-58e261f2 data-v-f465d38e><!--[--><div class="item" data-v-f465d38e><div class="nav-link" data-v-f465d38e data-v-99f6c566><a class="item" href="/article/" data-v-99f6c566>Article <!----></a></div></div><!--]--><!----><div class="item" data-v-f465d38e><div class="nav-link" data-v-f465d38e data-v-99f6c566><a class="item isExternal" href="https://github.com/changqingom/blog" target="_blank" rel="noopener noreferrer" data-v-99f6c566>GitHub <svg class="icon outbound" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewbox="0 0 100 100" width="15" height="15" data-v-99f6c566><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path><polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div></div></nav><!--[--><!--]--><ul class="sidebar-links" data-v-58e261f2><!--[--><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><p class="sidebar-link-item" data-v-58e261f2>2021</p><ul class="sidebar-links" data-v-58e261f2><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item active" href="/article/2021/cesium-line" data-v-58e261f2>Cesium线相关整理</a><ul class="sidebar-links" data-v-58e261f2><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="#entity-实体" data-v-58e261f2>Entity 实体</a><ul class="sidebar-links" data-v-58e261f2><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="#polyline-折线" data-v-58e261f2>Polyline 折线</a><!----></li><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="#polylinevolume-线体" data-v-58e261f2>PolylineVolume 线体</a><!----></li><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="#corridor-走廊" data-v-58e261f2>Corridor 走廊</a><!----></li><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="#path-路线" data-v-58e261f2>Path 路线</a><!----></li></ul></li><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="#primitive-图元" data-v-58e261f2>Primitive 图元</a><ul class="sidebar-links" data-v-58e261f2><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="#polylinegeometry-折线几何图形" data-v-58e261f2>PolylineGeometry 折线几何图形</a><!----></li><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="#simplepolylinegeometry-简单折线几何图形" data-v-58e261f2>SimplePolylineGeometry 简单折线几何图形</a><!----></li><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="#groundpolylinegeometry-贴地折线几何图形" data-v-58e261f2>GroundPolylineGeometry 贴地折线几何图形</a><!----></li><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="#polylinevolumegeometry-polylinevolumeoutlinegeometry-折线体几何图形" data-v-58e261f2>PolylineVolumeGeometry&amp;PolylineVolumeOutlineGeometry 折线体几何图形</a><!----></li><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="#corridorgeometry-走廊几何图形" data-v-58e261f2>CorridorGeometry 走廊几何图形</a><!----></li></ul></li></ul></li><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="/article/2021/cesium-polygon" data-v-58e261f2>Cesium面相关整理</a><!----></li><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="/article/2021/coordinate-system" data-v-58e261f2>GIS坐标系整理</a><!----></li><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="/article/2021/cesium-material&amp;appearance" data-v-58e261f2>Cesium材料与外观相关整理</a><!----></li><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="/article/2021/cesium-geometry" data-v-58e261f2>Cesium简单几何渲染</a><!----></li><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="/article/2021/mathematics-for-cg" data-v-58e261f2>CG数学基础整理</a><!----></li></ul></li><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><p class="sidebar-link-item" data-v-58e261f2>2022</p><ul class="sidebar-links" data-v-58e261f2><li class="sidebar-link" data-v-58e261f2 data-v-58e261f2><a class="sidebar-link-item" href="/article/2022/ol-heatmap" data-v-58e261f2>Openlayers@6.x热力图绘制分析</a><!----></li></ul></li><!--]--></ul><!--[--><!--]--></aside><!-- TODO: make this button accessible --><div class="sidebar-mask"></div><main class="page" data-v-d36a7fda><div class="container" data-v-d36a7fda><!--[--><!--]--><div class="content" data-v-d36a7fda><div data-v-d36a7fda><h1 id="cesium线相关整理"><a class="header-anchor" href="#cesium线相关整理" aria-hidden="true">#</a> Cesium线相关整理</h1><h2 id="entity-实体"><a class="header-anchor" href="#entity-实体" aria-hidden="true">#</a> Entity 实体</h2><h3 id="polyline-折线"><a class="header-anchor" href="#polyline-折线" aria-hidden="true">#</a> Polyline 折线</h3><p><code>entity polyline</code> 样式使用 <code>material</code> 属性</p><p><a href="https://cesium.com/docs/cesiumjs-ref-doc/PolylineGraphics.html" target="_blank" rel="noopener noreferrer">Entity Polyline API</a></p><div class="language-javascript"><pre><code><span class="token keyword">const</span> lineGeojson <span class="token operator">=</span> <span class="token punctuation">{</span>
+  type<span class="token operator">:</span> <span class="token string">&#39;Feature&#39;</span><span class="token punctuation">,</span>
+  properties<span class="token operator">:</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+  geometry<span class="token operator">:</span> <span class="token punctuation">{</span>
+    type<span class="token operator">:</span> <span class="token string">&#39;LineString&#39;</span><span class="token punctuation">,</span>
+    coordinates<span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token punctuation">[</span><span class="token number">109.3524169921875</span><span class="token punctuation">,</span> <span class="token number">32.887659962078956</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span><span class="token number">109.3798828125</span><span class="token punctuation">,</span> <span class="token number">32.861132322810946</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token punctuation">[</span><span class="token number">109.41558837890625</span><span class="token punctuation">,</span> <span class="token number">32.894002351815516</span><span class="token punctuation">]</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> entity <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>Entity</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  polyline<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>PolylineGraphics</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    positions<span class="token operator">:</span> Cesium<span class="token punctuation">.</span>Cartesian3<span class="token punctuation">.</span><span class="token function">fromDegreesArrayHeights</span><span class="token punctuation">(</span>
+      lineGeojson<span class="token punctuation">.</span>geometry<span class="token punctuation">.</span>coordinates
+        <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">i</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> i<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token number">2000</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">flat</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    width<span class="token operator">:</span> <span class="token number">10</span><span class="token punctuation">,</span>
+    clampToGround<span class="token operator">:</span> <span class="token boolean">true</span>  <span class="token comment">// 控制是否贴地形</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+viewer<span class="token punctuation">.</span>entities<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>entity<span class="token punctuation">)</span>
+</code></pre></div><hr><h3 id="polylinevolume-线体"><a class="header-anchor" href="#polylinevolume-线体" aria-hidden="true">#</a> PolylineVolume 线体</h3><p><code>entity polylineVolume</code> 样式使用 <code>material</code> 属性</p><p><code>shape</code>属性为二维点数组,坐标中心为中心线</p><p>线体无贴地功能</p><p><a href="https://cesium.com/docs/cesiumjs-ref-doc/PolylineVolumeGraphics.html" target="_blank" rel="noopener noreferrer">Entity PolylineVolume API</a></p><div class="language-javascript"><pre><code><span class="token keyword">const</span> entity <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>Entity</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  polylineVolume<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>PolylineVolumeGraphics</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    positions<span class="token operator">:</span> Cesium<span class="token punctuation">.</span>Cartesian3<span class="token punctuation">.</span><span class="token function">fromDegreesArrayHeights</span><span class="token punctuation">(</span>
+      lineGeojson<span class="token punctuation">.</span>geometry<span class="token punctuation">.</span>coordinates
+        <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">i</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> i<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token number">2000</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">flat</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    shape<span class="token operator">:</span> <span class="token punctuation">[</span>
+      <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>Cartesian2</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>Cartesian2</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>Cartesian2</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>Cartesian2</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+viewer<span class="token punctuation">.</span>entities<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>entity<span class="token punctuation">)</span>
+</code></pre></div><hr><h3 id="corridor-走廊"><a class="header-anchor" href="#corridor-走廊" aria-hidden="true">#</a> Corridor 走廊</h3><p><code>entity corridor</code> 样式使用 <code>material</code> 属性</p><p>坐标高度会忽略,使用<code>height</code>和<code>extrudeHeight</code>控制高度</p><p><code>height</code>和<code>extrudeHeight</code>属性任一属性被设置时,不再贴地</p><p><a href="https://cesium.com/docs/cesiumjs-ref-doc/CorridorGraphics.html" target="_blank" rel="noopener noreferrer">Entity Corridor API</a></p><div class="language-javascript"><pre><code><span class="token keyword">const</span> entity <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>Entity</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  corridor<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>CorridorGraphics</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    positions<span class="token operator">:</span> Cesium<span class="token punctuation">.</span>Cartesian3<span class="token punctuation">.</span><span class="token function">fromDegreesArrayHeights</span><span class="token punctuation">(</span>
+      lineGeojson<span class="token punctuation">.</span>geometry<span class="token punctuation">.</span>coordinates
+        <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">i</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> i<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token number">2000</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">flat</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    width<span class="token operator">:</span> <span class="token number">100</span>
+    <span class="token comment">// height: undefined</span>
+    <span class="token comment">// height: 2000,</span>
+    <span class="token comment">// heightReference: Cesium.HeightReference.CLAMP_TO_GROUND</span>
+    <span class="token comment">// extrudedHeight: 2100</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+viewer<span class="token punctuation">.</span>entities<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>entity<span class="token punctuation">)</span>
+</code></pre></div><hr><h3 id="path-路线"><a class="header-anchor" href="#path-路线" aria-hidden="true">#</a> Path 路线</h3><p><code>entity path</code> 样式使用 <code>material</code> 属性</p><p>坐标点高度使用为相对椭球体高度</p><p><a href="https://cesium.com/docs/cesiumjs-ref-doc/PathGraphics.html" target="_blank" rel="noopener noreferrer">Entity Path API</a></p><div class="language-javascript"><pre><code><span class="token keyword">const</span> sampledPosition <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>SampledPositionProperty</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+sampledPosition<span class="token punctuation">.</span><span class="token function">addSamples</span><span class="token punctuation">(</span>
+  lineGeojson<span class="token punctuation">.</span>geometry<span class="token punctuation">.</span>coordinates<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">val<span class="token punctuation">,</span> index</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> Cesium<span class="token punctuation">.</span>JulianDate<span class="token punctuation">.</span><span class="token function">addSeconds</span><span class="token punctuation">(</span>
+      viewer<span class="token punctuation">.</span>clock<span class="token punctuation">.</span>currentTime<span class="token punctuation">,</span>
+      index <span class="token operator">*</span> <span class="token number">5</span><span class="token punctuation">,</span>
+      <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>JulianDate</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  lineGeojson<span class="token punctuation">.</span>geometry<span class="token punctuation">.</span>coordinates<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">i</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> Cesium<span class="token punctuation">.</span>Cartesian3<span class="token punctuation">.</span><span class="token function">fromDegrees</span><span class="token punctuation">(</span><span class="token operator">...</span>i<span class="token punctuation">,</span> <span class="token number">2000</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+
+viewer<span class="token punctuation">.</span>clock<span class="token punctuation">.</span>stopTime <span class="token operator">=</span> Cesium<span class="token punctuation">.</span>JulianDate<span class="token punctuation">.</span><span class="token function">addSeconds</span><span class="token punctuation">(</span>
+  viewer<span class="token punctuation">.</span>clock<span class="token punctuation">.</span>currentTime<span class="token punctuation">,</span>
+  <span class="token punctuation">(</span>lineGeojson<span class="token punctuation">.</span>geometry<span class="token punctuation">.</span>coordinates<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">5</span><span class="token punctuation">,</span>
+  <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>JulianDate</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+
+viewer<span class="token punctuation">.</span>clock<span class="token punctuation">.</span>clockRange <span class="token operator">=</span> Cesium<span class="token punctuation">.</span>ClockRange<span class="token punctuation">.</span><span class="token constant">LOOP_STOP</span>
+<span class="token comment">// 设置插值算法</span>
+sampledPosition<span class="token punctuation">.</span><span class="token function">setInterpolationOptions</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token comment">// interpolationDegree: 1,</span>
+  <span class="token comment">// interpolationAlgorithm: Cesium.LinearApproximation</span>
+  interpolationDegree<span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+  interpolationAlgorithm<span class="token operator">:</span> Cesium<span class="token punctuation">.</span>HermitePolynomialApproximation
+  <span class="token comment">// interpolationDegree: 5,</span>
+  <span class="token comment">// interpolationAlgorithm: Cesium.LagrangePolynomialApproximation</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> entity <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>Entity</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  position<span class="token operator">:</span> sampledPosition<span class="token punctuation">,</span>
+  availability<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>TimeIntervalCollection</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+    <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>TimeInterval</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      start<span class="token operator">:</span> viewer<span class="token punctuation">.</span>clock<span class="token punctuation">.</span>startTime<span class="token punctuation">,</span>
+      stop<span class="token operator">:</span> viewer<span class="token punctuation">.</span>clock<span class="token punctuation">.</span>stopTime
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  path<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>PathGraphics</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    width<span class="token operator">:</span> <span class="token number">10</span><span class="token punctuation">,</span>
+    resolution<span class="token operator">:</span> <span class="token number">1</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+viewer<span class="token punctuation">.</span>entities<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>entity<span class="token punctuation">)</span>
+</code></pre></div><hr><h2 id="primitive-图元"><a class="header-anchor" href="#primitive-图元" aria-hidden="true">#</a> Primitive 图元</h2><h3 id="polylinegeometry-折线几何图形"><a class="header-anchor" href="#polylinegeometry-折线几何图形" aria-hidden="true">#</a> PolylineGeometry 折线几何图形</h3><p><a href="https://cesium.com/docs/cesiumjs-ref-doc/PolylineGeometry.html" target="_blank" rel="noopener noreferrer">PolylineGeometry API</a></p><div class="language-javascript"><pre><code><span class="token keyword">const</span> geometry <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>PolylineGeometry</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  positions<span class="token operator">:</span> Cesium<span class="token punctuation">.</span>Cartesian3<span class="token punctuation">.</span><span class="token function">fromDegreesArrayHeights</span><span class="token punctuation">(</span>
+    lineGeojson<span class="token punctuation">.</span>geometry<span class="token punctuation">.</span>coordinates
+      <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">i</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> i<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token number">2000</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">flat</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">)</span><span class="token punctuation">,</span>
+  width<span class="token operator">:</span> <span class="token number">10.0</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">// const colorAttribute = Cesium.ColorGeometryInstanceAttribute.fromColor(</span>
+<span class="token comment">//   Cesium.Color.RED</span>
+<span class="token comment">// )</span>
+<span class="token comment">// 或</span>
+<span class="token keyword">const</span> colorAttribute <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>GeometryInstanceAttribute</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  componentDatatype<span class="token operator">:</span> Cesium<span class="token punctuation">.</span>ComponentDatatype<span class="token punctuation">.</span><span class="token constant">UNSIGNED_BYTE</span><span class="token punctuation">,</span>
+  componentsPerAttribute<span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span>
+  normalize<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  value<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Uint8Array</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+    Cesium<span class="token punctuation">.</span>Color<span class="token punctuation">.</span><span class="token function">floatToByte</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token number">0</span><span class="token punctuation">,</span>
+    Cesium<span class="token punctuation">.</span>Color<span class="token punctuation">.</span><span class="token function">floatToByte</span><span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">)</span>
+  <span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> attributes <span class="token operator">=</span> <span class="token punctuation">{</span>
+  color<span class="token operator">:</span> colorAttribute
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> geometryInstance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>GeometryInstance</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  geometry<span class="token operator">:</span> geometry<span class="token punctuation">,</span>
+  attributes<span class="token operator">:</span> attributes
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> geometryInstance1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>GeometryInstance</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  geometry<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>PolylineGeometry</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    positions<span class="token operator">:</span> Cesium<span class="token punctuation">.</span>Cartesian3<span class="token punctuation">.</span><span class="token function">fromDegreesArrayHeights</span><span class="token punctuation">(</span>
+      lineGeojson<span class="token punctuation">.</span>geometry<span class="token punctuation">.</span>coordinates
+        <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">i</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> i<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token number">1500</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">flat</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">)</span><span class="token punctuation">,</span>
+    width<span class="token operator">:</span> <span class="token number">10.0</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  attributes<span class="token operator">:</span> <span class="token punctuation">{</span>
+    color<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>GeometryInstanceAttribute</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      componentDatatype<span class="token operator">:</span> Cesium<span class="token punctuation">.</span>ComponentDatatype<span class="token punctuation">.</span><span class="token constant">UNSIGNED_BYTE</span><span class="token punctuation">,</span>
+      componentsPerAttribute<span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span>
+      normalize<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      value<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Uint8Array</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+        Cesium<span class="token punctuation">.</span>Color<span class="token punctuation">.</span><span class="token function">floatToByte</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        Cesium<span class="token punctuation">.</span>Color<span class="token punctuation">.</span><span class="token function">floatToByte</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token number">0</span><span class="token punctuation">,</span>
+        Cesium<span class="token punctuation">.</span>Color<span class="token punctuation">.</span><span class="token function">floatToByte</span><span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">)</span>
+      <span class="token punctuation">]</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">// 颜色渲染</span>
+<span class="token keyword">const</span> appearance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>PolylineColorAppearance</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  translucent<span class="token operator">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token comment">// 或</span>
+<span class="token keyword">const</span> appearance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>PolylineMaterialAppearance</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  material<span class="token operator">:</span> Cesium<span class="token punctuation">.</span>Material<span class="token punctuation">.</span><span class="token function">fromType</span><span class="token punctuation">(</span><span class="token string">&#39;Color&#39;</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token comment">// 材质渲染</span>
+<span class="token keyword">const</span> appearance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>PolylineMaterialAppearance</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  material<span class="token operator">:</span> Cesium<span class="token punctuation">.</span>Material<span class="token punctuation">.</span><span class="token function">fromType</span><span class="token punctuation">(</span><span class="token string">&#39;Image&#39;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    image<span class="token operator">:</span>
+      <span class="token string">&#39;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAD9MAAABACAMAAAAk00bAAAAAVFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////8wXzyWAAAAHHRSTlMA5t0H2NPNxK+jiXtcT0MsIhkTDpc3arq5bJg4Lv4jUwAABapJREFUeNrszLcBwgAQBEEk4Z0cnv77pAA9H38wF9/O6u/OTbLj8k8ikUgkEolEIpFIJBKphPRtk2zfLQMSiUQikUgkEolEIpFIFaRxk2TbKShIJBKJRCKRSCQSiUQiFZC6Z5K1fVCQSCQSiUQikUgkEolEqiB9mmSXICCRSCQSiUQikUgkEolUQXpn2SkISCQSiUQikUgkEolEIlWQrll2CAISiUQikUgkEolEIpFIFaRhnWS7eRmQSCQSiUQikUgkEolEqiDNuyRbD0FBIpFIJBKJRCKRSCQSqYJ0aJJdg4BEIpFIJBKJRCKRSCRSBemUZY8gIJFIJBKJRCKRSCQSiVRBumTZLQhIJBKJRCKRSCQSiUQiVZD6Nsle3TIgkUgkEolEIpFIJBKJVEGatkm2GYOCRCKRSCQSiUQikUgkUgGp2ydZew8KEolEIpFIJBKJRCKRSBWkY5PsHASkHzvzbYQwAARAcJDwQh5P/31SgH4+/mAvvyWRSCQSiUQikUgkEqmCdMu2azCQSCQSiUQikUgkEolEqiD9mmQ7t9uBRCKRSCQSiUQikUgkUgVpPiTbcQkOEolEIpFIJBKJRCKRSAWk9pVszRgcJBKJRCKRSCQSiUQikSpI311SHwwkEolEIpFIJBKJRCKRKkifbOuCgUQikUgkEolEIpFIJFIFaci2SzCQSCQSiUQikUgkEolEqiBN+2Q7rduBRCKRSCQSiUQikUgkUgVpPSXbfgoOEolEIpFIJBKJRCKRSBWkyy5pCAYSiUQikUgkEolEIpFIFaQu257BQCKRSCQSiUQikUgkEqmC1GfbPRhIJBKJRCKRSCQSiUQiVZDGJtne7XYgkUgkEolEIpFIJBKJVEFajsl2mIODRCKRSCQSiUQikUgkUgGpPSdb8wgOEunP3h3kIAgEURSMgBJEAcWg9z+pB2jtBRt6UbP+r8IBmAyJRCKRSCQSiUQikSpI11Nybj8CEolEIpFIJBKJRCKRSCWk47+ARCKRSCQSiUQikUgk0n+p8p8CJBKJRCKRSCQSiUQikRKp8I1+EolEIpFIJBKJRCKRSPukuUnCdxv2JBKJRCKRSCQSiUQikYpIh7+QTyKRSCQSiUQikUgkEmmfNGbhFuYkEolEIpFIJBKJRCKRqkhDFk5hTiKRSCQSiUQikUgkEqmItPZJ1y1hTyKRSCQSiUQikUgkEqmItHRJ2K9hTyKRSCQSiUQikUgkEqmINJ2SM8Q9iUQikUgkEolEIpFIpCLSloVjmJNIJBKJRCKRSCQSiUSqIr2y8B7mJBKJRCKRSCQSiUQikYpI7SfpmjnsSSQSiUQikUgkEolEIhWRHuckvDzDnkQifdmZcyMGASAIggXo40cC9OSfqAK4qrPP6LVnm0QikUgkEolEIpGKSGebHB9d6EkkEolEIpFIJBKJRCIVkaYm2RB7EolEIpFIJBKJRCKRSEWkITtOISeRSCQSiUQikUgkEolUROoeya89Q08ikUgkEolEIpFIJBKpiPS6JcfrM/QkEolEIpFIJBKJRCKRikhrmxw/XehJJBKJRCKRSCQSiUQiFZHmJtkRexKJRCKRSCQSiUQikUhFpDE7/kJOIpFIJBKJRCKRSCQSqYrUZ8cl5CQSiUQikUgkEolEIpGKSPs9+V220JNIJBKJRCKRSCQSiUQqIm2X5HjfQ08ikUgkEolEIpFIJBKpiLQ0yfrYk0gkEolEIpFIJBKJRCoivbPjGHISiUQikUgkEolEIpFIVaQjO84hJ5FIJBKJRCKRSCQSiVRE6r7Jr11DTyKRSP925hgFYBAIoihJSAhio+D9r+oBFraULd7Ufx6JRCKRSCQSiUQqIo03OX4z9CQSiUQikUgkEolEIpGKSOtOjv8TehKJRCKRSCQSiUQikUhFpH4la7EnkUgkEolEIpFIJBKJdFLasSljgbKdwNEAAAAASUVORK5CYII=&#39;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> primitive <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>Primitive</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  geometryInstances<span class="token operator">:</span> <span class="token punctuation">[</span>geometryInstance<span class="token punctuation">,</span> geometryInstance1<span class="token punctuation">]</span><span class="token punctuation">,</span>
+  appearance<span class="token operator">:</span> appearance
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+scene<span class="token punctuation">.</span>primitives<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>primitive<span class="token punctuation">)</span>
+</code></pre></div><hr><h3 id="simplepolylinegeometry-简单折线几何图形"><a class="header-anchor" href="#simplepolylinegeometry-简单折线几何图形" aria-hidden="true">#</a> SimplePolylineGeometry 简单折线几何图形</h3><p>当前没有线宽设置</p><p><a href="https://cesium.com/docs/cesiumjs-ref-doc/SimplePolylineGeometry.html" target="_blank" rel="noopener noreferrer">SimplePolylineGeometry API</a></p><div class="language-javascript"><pre><code><span class="token keyword">const</span> geometry <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>SimplePolylineGeometry</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  positions<span class="token operator">:</span> Cesium<span class="token punctuation">.</span>Cartesian3<span class="token punctuation">.</span><span class="token function">fromDegreesArrayHeights</span><span class="token punctuation">(</span>
+    lineGeojson<span class="token punctuation">.</span>geometry<span class="token punctuation">.</span>coordinates
+      <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">i</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> i<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token number">2000</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">flat</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">)</span><span class="token punctuation">,</span>
+  colors<span class="token operator">:</span> lineGeojson<span class="token punctuation">.</span>geometry<span class="token punctuation">.</span>coordinates<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">i</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> Cesium<span class="token punctuation">.</span>Color<span class="token punctuation">.</span><span class="token constant">BLUE</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">// const colorAttribute = Cesium.ColorGeometryInstanceAttribute.fromColor(</span>
+<span class="token comment">//   Cesium.Color.RED</span>
+<span class="token comment">// )</span>
+<span class="token comment">// 或</span>
+<span class="token keyword">const</span> colorAttribute <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>GeometryInstanceAttribute</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  componentDatatype<span class="token operator">:</span> Cesium<span class="token punctuation">.</span>ComponentDatatype<span class="token punctuation">.</span><span class="token constant">UNSIGNED_BYTE</span><span class="token punctuation">,</span>
+  componentsPerAttribute<span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span>
+  normalize<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  value<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Uint8Array</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+    Cesium<span class="token punctuation">.</span>Color<span class="token punctuation">.</span><span class="token function">floatToByte</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token number">0</span><span class="token punctuation">,</span>
+    Cesium<span class="token punctuation">.</span>Color<span class="token punctuation">.</span><span class="token function">floatToByte</span><span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">)</span>
+  <span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> attributes <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token comment">// attribute 优先级高于simplePolylineGeometry的colors属性</span>
+  color<span class="token operator">:</span> colorAttribute
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> geometryInstance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>GeometryInstance</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  geometry<span class="token operator">:</span> geometry<span class="token punctuation">,</span>
+  attributes<span class="token operator">:</span> attributes
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> appearance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>PerInstanceColorAppearance</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token comment">// 必须项</span>
+  flat<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  translucent<span class="token operator">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> primitive <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>Primitive</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  geometryInstances<span class="token operator">:</span> geometryInstance<span class="token punctuation">,</span>
+  appearance<span class="token operator">:</span> appearance
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+scene<span class="token punctuation">.</span>primitives<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>primitive<span class="token punctuation">)</span>
+
+</code></pre></div><hr><h3 id="groundpolylinegeometry-贴地折线几何图形"><a class="header-anchor" href="#groundpolylinegeometry-贴地折线几何图形" aria-hidden="true">#</a> GroundPolylineGeometry 贴地折线几何图形</h3><p><a href="https://cesium.com/docs/cesiumjs-ref-doc/GroundPolylineGeometry.html" target="_blank" rel="noopener noreferrer">GroundPolylineGeometry API</a></p><div class="language-javascript"><pre><code><span class="token keyword">const</span> geometry <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>GroundPolylineGeometry</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  positions<span class="token operator">:</span> Cesium<span class="token punctuation">.</span>Cartesian3<span class="token punctuation">.</span><span class="token function">fromDegreesArrayHeights</span><span class="token punctuation">(</span>
+    lineGeojson<span class="token punctuation">.</span>geometry<span class="token punctuation">.</span>coordinates
+      <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">i</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> i<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token number">2000</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      <span class="token punctuation">.</span><span class="token function">flat</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token punctuation">)</span><span class="token punctuation">,</span>
+  width<span class="token operator">:</span> <span class="token number">10</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">// const colorAttribute = Cesium.ColorGeometryInstanceAttribute.fromColor(</span>
+<span class="token comment">//   Cesium.Color.RED</span>
+<span class="token comment">// )</span>
+<span class="token comment">// 或</span>
+<span class="token keyword">const</span> colorAttribute <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>GeometryInstanceAttribute</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  componentDatatype<span class="token operator">:</span> Cesium<span class="token punctuation">.</span>ComponentDatatype<span class="token punctuation">.</span><span class="token constant">UNSIGNED_BYTE</span><span class="token punctuation">,</span>
+  componentsPerAttribute<span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span>
+  normalize<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  value<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Uint8Array</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+    Cesium<span class="token punctuation">.</span>Color<span class="token punctuation">.</span><span class="token function">floatToByte</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token number">0</span><span class="token punctuation">,</span>
+    Cesium<span class="token punctuation">.</span>Color<span class="token punctuation">.</span><span class="token function">floatToByte</span><span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">)</span>
+  <span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> attributes <span class="token operator">=</span> <span class="token punctuation">{</span>
+  color<span class="token operator">:</span> colorAttribute
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> geometryInstance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>GeometryInstance</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  geometry<span class="token operator">:</span> geometry<span class="token punctuation">,</span>
+  attributes<span class="token operator">:</span> attributes
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> appearance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>PolylineMaterialAppearance</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  material<span class="token operator">:</span> Cesium<span class="token punctuation">.</span>Material<span class="token punctuation">.</span><span class="token function">fromType</span><span class="token punctuation">(</span><span class="token string">&#39;Color&#39;</span><span class="token punctuation">)</span>
+  <span class="token comment">// material: Cesium.Material.fromType(&#39;Image&#39;, {</span>
+  <span class="token comment">//   image:</span>
+  <span class="token comment">//     &#39;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAD9MAAABACAMAAAAk00bAAAAAVFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////8wXzyWAAAAHHRSTlMA5t0H2NPNxK+jiXtcT0MsIhkTDpc3arq5bJg4Lv4jUwAABapJREFUeNrszLcBwgAQBEEk4Z0cnv77pAA9H38wF9/O6u/OTbLj8k8ikUgkEolEIpFIJBKphPRtk2zfLQMSiUQikUgkEolEIpFIFaRxk2TbKShIJBKJRCKRSCQSiUQiFZC6Z5K1fVCQSCQSiUQikUgkEolEqiB9mmSXICCRSCQSiUQikUgkEolUQXpn2SkISCQSiUQikUgkEolEIlWQrll2CAISiUQikUgkEolEIpFIFaRhnWS7eRmQSCQSiUQikUgkEolEqiDNuyRbD0FBIpFIJBKJRCKRSCQSqYJ0aJJdg4BEIpFIJBKJRCKRSCRSBemUZY8gIJFIJBKJRCKRSCQSiVRBumTZLQhIJBKJRCKRSCQSiUQiVZD6Nsle3TIgkUgkEolEIpFIJBKJVEGatkm2GYOCRCKRSCQSiUQikUgkUgGp2ydZew8KEolEIpFIJBKJRCKRSBWkY5PsHASkHzvzbYQwAARAcJDwQh5P/31SgH4+/mAvvyWRSCQSiUQikUgkEqmCdMu2azCQSCQSiUQikUgkEolEqiD9mmQ7t9uBRCKRSCQSiUQikUgkUgVpPiTbcQkOEolEIpFIJBKJRCKRSAWk9pVszRgcJBKJRCKRSCQSiUQikSpI311SHwwkEolEIpFIJBKJRCKRKkifbOuCgUQikUgkEolEIpFIJFIFaci2SzCQSCQSiUQikUgkEolEqiBN+2Q7rduBRCKRSCQSiUQikUgkUgVpPSXbfgoOEolEIpFIJBKJRCKRSBWkyy5pCAYSiUQikUgkEolEIpFIFaQu257BQCKRSCQSiUQikUgkEqmC1GfbPRhIJBKJRCKRSCQSiUQiVZDGJtne7XYgkUgkEolEIpFIJBKJVEFajsl2mIODRCKRSCQSiUQikUgkUgGpPSdb8wgOEunP3h3kIAgEURSMgBJEAcWg9z+pB2jtBRt6UbP+r8IBmAyJRCKRSCQSiUQikSpI11Nybj8CEolEIpFIJBKJRCKRSCWk47+ARCKRSCQSiUQikUgk0n+p8p8CJBKJRCKRSCQSiUQikRKp8I1+EolEIpFIJBKJRCKRSPukuUnCdxv2JBKJRCKRSCQSiUQikYpIh7+QTyKRSCQSiUQikUgkEmmfNGbhFuYkEolEIpFIJBKJRCKRqkhDFk5hTiKRSCQSiUQikUgkEqmItPZJ1y1hTyKRSCQSiUQikUgkEqmItHRJ2K9hTyKRSCQSiUQikUgkEqmINJ2SM8Q9iUQikUgkEolEIpFIpCLSloVjmJNIJBKJRCKRSCQSiUSqIr2y8B7mJBKJRCKRSCQSiUQikYpI7SfpmjnsSSQSiUQikUgkEolEIhWRHuckvDzDnkQifdmZcyMGASAIggXo40cC9OSfqAK4qrPP6LVnm0QikUgkEolEIpGKSGebHB9d6EkkEolEIpFIJBKJRCIVkaYm2RB7EolEIpFIJBKJRCKRSEWkITtOISeRSCQSiUQikUgkEolUROoeya89Q08ikUgkEolEIpFIJBKpiPS6JcfrM/QkEolEIpFIJBKJRCKRikhrmxw/XehJJBKJRCKRSCQSiUQiFZHmJtkRexKJRCKRSCQSiUQikUhFpDE7/kJOIpFIJBKJRCKRSCQSqYrUZ8cl5CQSiUQikUgkEolEIpGKSPs9+V220JNIJBKJRCKRSCQSiUQqIm2X5HjfQ08ikUgkEolEIpFIJBKpiLQ0yfrYk0gkEolEIpFIJBKJRCoivbPjGHISiUQikUgkEolEIpFIVaQjO84hJ5FIJBKJRCKRSCQSiVRE6r7Jr11DTyKRSP925hgFYBAIoihJSAhio+D9r+oBFraULd7Ufx6JRCKRSCQSiUQqIo03OX4z9CQSiUQikUgkEolEIpGKSOtOjv8TehKJRCKRSCQSiUQikUhFpH4la7EnkUgkEolEIpFIJBKJdFLasSljgbKdwNEAAAAASUVORK5CYII=&#39;</span>
+  <span class="token comment">// })</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> primitive <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>GroundPolylinePrimitive</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  geometryInstances<span class="token operator">:</span> geometryInstance<span class="token punctuation">,</span>
+  appearance<span class="token operator">:</span> appearance
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+scene<span class="token punctuation">.</span>groundPrimitives<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>primitive<span class="token punctuation">)</span>
+</code></pre></div><hr><h3 id="polylinevolumegeometry-polylinevolumeoutlinegeometry-折线体几何图形"><a class="header-anchor" href="#polylinevolumegeometry-polylinevolumeoutlinegeometry-折线体几何图形" aria-hidden="true">#</a> PolylineVolumeGeometry&amp;PolylineVolumeOutlineGeometry 折线体几何图形</h3><p><a href="https://cesium.com/docs/cesiumjs-ref-doc/PolylineVolumeGeometry.html" target="_blank" rel="noopener noreferrer">GroundPolylineGeometry API</a></p><p><a href="https://cesium.com/docs/cesiumjs-ref-doc/PolylineVolumeOutlineGeometry.html" target="_blank" rel="noopener noreferrer">PolylineVolumeOutlineGeometry API</a></p><div class="language-javascript"><pre><code>
+<span class="token keyword">const</span> polylinePositions <span class="token operator">=</span> Cesium<span class="token punctuation">.</span>Cartesian3<span class="token punctuation">.</span><span class="token function">fromDegreesArrayHeights</span><span class="token punctuation">(</span>
+  lineGeojson<span class="token punctuation">.</span>geometry<span class="token punctuation">.</span>coordinates
+    <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">i</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> i<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token number">2000</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">flat</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> shapePositions <span class="token operator">=</span> <span class="token punctuation">[</span>
+  <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>Cartesian2</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>Cartesian2</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>Cartesian2</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>Cartesian2</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">100</span><span class="token punctuation">)</span>
+<span class="token punctuation">]</span>
+
+<span class="token keyword">const</span> geometry <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>PolylineVolumeGeometry</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  polylinePositions<span class="token punctuation">,</span>
+  shapePositions
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> geometryOutline <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>PolylineVolumeOutlineGeometry</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  polylinePositions<span class="token punctuation">,</span>
+  shapePositions
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">// const colorAttribute = Cesium.ColorGeometryInstanceAttribute.fromColor(</span>
+<span class="token comment">//   Cesium.Color.RED</span>
+<span class="token comment">// )</span>
+<span class="token comment">// 或</span>
+<span class="token keyword">const</span> colorAttribute <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>GeometryInstanceAttribute</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  componentDatatype<span class="token operator">:</span> Cesium<span class="token punctuation">.</span>ComponentDatatype<span class="token punctuation">.</span><span class="token constant">UNSIGNED_BYTE</span><span class="token punctuation">,</span>
+  componentsPerAttribute<span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span>
+  normalize<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  value<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Uint8Array</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+    Cesium<span class="token punctuation">.</span>Color<span class="token punctuation">.</span><span class="token function">floatToByte</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    Cesium<span class="token punctuation">.</span>Color<span class="token punctuation">.</span><span class="token function">floatToByte</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token number">0</span><span class="token punctuation">,</span>
+    Cesium<span class="token punctuation">.</span>Color<span class="token punctuation">.</span><span class="token function">floatToByte</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+  <span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> attributes <span class="token operator">=</span> <span class="token punctuation">{</span>
+  color<span class="token operator">:</span> colorAttribute
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> geometryInstance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>GeometryInstance</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  geometry<span class="token operator">:</span> geometry<span class="token punctuation">,</span>
+  attributes<span class="token operator">:</span> <span class="token punctuation">{</span>
+    color<span class="token operator">:</span> Cesium<span class="token punctuation">.</span>ColorGeometryInstanceAttribute<span class="token punctuation">.</span><span class="token function">fromColor</span><span class="token punctuation">(</span>Cesium<span class="token punctuation">.</span>Color<span class="token punctuation">.</span><span class="token constant">RED</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> geometryOutlineInstance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>GeometryInstance</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  geometry<span class="token operator">:</span> geometryOutline<span class="token punctuation">,</span>
+  attributes<span class="token operator">:</span> attributes
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">// const appearance = new Cesium.PerInstanceColorAppearance({</span>
+<span class="token comment">//   flat: true,</span>
+<span class="token comment">//   translucent: true</span>
+<span class="token comment">// })</span>
+<span class="token keyword">const</span> appearance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>EllipsoidSurfaceAppearance</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  material<span class="token operator">:</span> Cesium<span class="token punctuation">.</span>Material<span class="token punctuation">.</span><span class="token function">fromType</span><span class="token punctuation">(</span><span class="token string">&#39;Color&#39;</span><span class="token punctuation">,</span> <span class="token punctuation">{</span> color<span class="token operator">:</span> Cesium<span class="token punctuation">.</span>Color<span class="token punctuation">.</span><span class="token constant">RED</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  translucent<span class="token operator">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token comment">// const appearance = new Cesium.EllipsoidSurfaceAppearance({</span>
+<span class="token comment">//   material: Cesium.Material.fromType(&#39;Image&#39;, {</span>
+<span class="token comment">//     image:</span>
+<span class="token comment">//       &#39;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAD9MAAABACAMAAAAk00bAAAAAVFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////8wXzyWAAAAHHRSTlMA5t0H2NPNxK+jiXtcT0MsIhkTDpc3arq5bJg4Lv4jUwAABapJREFUeNrszLcBwgAQBEEk4Z0cnv77pAA9H38wF9/O6u/OTbLj8k8ikUgkEolEIpFIJBKphPRtk2zfLQMSiUQikUgkEolEIpFIFaRxk2TbKShIJBKJRCKRSCQSiUQiFZC6Z5K1fVCQSCQSiUQikUgkEolEqiB9mmSXICCRSCQSiUQikUgkEolUQXpn2SkISCQSiUQikUgkEolEIlWQrll2CAISiUQikUgkEolEIpFIFaRhnWS7eRmQSCQSiUQikUgkEolEqiDNuyRbD0FBIpFIJBKJRCKRSCQSqYJ0aJJdg4BEIpFIJBKJRCKRSCRSBemUZY8gIJFIJBKJRCKRSCQSiVRBumTZLQhIJBKJRCKRSCQSiUQiVZD6Nsle3TIgkUgkEolEIpFIJBKJVEGatkm2GYOCRCKRSCQSiUQikUgkUgGp2ydZew8KEolEIpFIJBKJRCKRSBWkY5PsHASkHzvzbYQwAARAcJDwQh5P/31SgH4+/mAvvyWRSCQSiUQikUgkEqmCdMu2azCQSCQSiUQikUgkEolEqiD9mmQ7t9uBRCKRSCQSiUQikUgkUgVpPiTbcQkOEolEIpFIJBKJRCKRSAWk9pVszRgcJBKJRCKRSCQSiUQikSpI311SHwwkEolEIpFIJBKJRCKRKkifbOuCgUQikUgkEolEIpFIJFIFaci2SzCQSCQSiUQikUgkEolEqiBN+2Q7rduBRCKRSCQSiUQikUgkUgVpPSXbfgoOEolEIpFIJBKJRCKRSBWkyy5pCAYSiUQikUgkEolEIpFIFaQu257BQCKRSCQSiUQikUgkEqmC1GfbPRhIJBKJRCKRSCQSiUQiVZDGJtne7XYgkUgkEolEIpFIJBKJVEFajsl2mIODRCKRSCQSiUQikUgkUgGpPSdb8wgOEunP3h3kIAgEURSMgBJEAcWg9z+pB2jtBRt6UbP+r8IBmAyJRCKRSCQSiUQikSpI11Nybj8CEolEIpFIJBKJRCKRSCWk47+ARCKRSCQSiUQikUgk0n+p8p8CJBKJRCKRSCQSiUQikRKp8I1+EolEIpFIJBKJRCKRSPukuUnCdxv2JBKJRCKRSCQSiUQikYpIh7+QTyKRSCQSiUQikUgkEmmfNGbhFuYkEolEIpFIJBKJRCKRqkhDFk5hTiKRSCQSiUQikUgkEqmItPZJ1y1hTyKRSCQSiUQikUgkEqmItHRJ2K9hTyKRSCQSiUQikUgkEqmINJ2SM8Q9iUQikUgkEolEIpFIpCLSloVjmJNIJBKJRCKRSCQSiUSqIr2y8B7mJBKJRCKRSCQSiUQikYpI7SfpmjnsSSQSiUQikUgkEolEIhWRHuckvDzDnkQifdmZcyMGASAIggXo40cC9OSfqAK4qrPP6LVnm0QikUgkEolEIpGKSGebHB9d6EkkEolEIpFIJBKJRCIVkaYm2RB7EolEIpFIJBKJRCKRSEWkITtOISeRSCQSiUQikUgkEolUROoeya89Q08ikUgkEolEIpFIJBKpiPS6JcfrM/QkEolEIpFIJBKJRCKRikhrmxw/XehJJBKJRCKRSCQSiUQiFZHmJtkRexKJRCKRSCQSiUQikUhFpDE7/kJOIpFIJBKJRCKRSCQSqYrUZ8cl5CQSiUQikUgkEolEIpGKSPs9+V220JNIJBKJRCKRSCQSiUQqIm2X5HjfQ08ikUgkEolEIpFIJBKpiLQ0yfrYk0gkEolEIpFIJBKJRCoivbPjGHISiUQikUgkEolEIpFIVaQjO84hJ5FIJBKJRCKRSCQSiVRE6r7Jr11DTyKRSP925hgFYBAIoihJSAhio+D9r+oBFraULd7Ufx6JRCKRSCQSiUQqIo03OX4z9CQSiUQikUgkEolEIpGKSOtOjv8TehKJRCKRSCQSiUQikUhFpH4la7EnkUgkEolEIpFIJBKJdFLasSljgbKdwNEAAAAASUVORK5CYII=&#39;</span>
+<span class="token comment">//   })</span>
+<span class="token comment">// })</span>
+<span class="token keyword">const</span> appearanceOutline <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>PerInstanceColorAppearance</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  flat<span class="token operator">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> primitive <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>Primitive</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  geometryInstances<span class="token operator">:</span> geometryInstance<span class="token punctuation">,</span>
+  appearance<span class="token operator">:</span> appearance
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> primitiveOutline <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>Primitive</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  geometryInstances<span class="token operator">:</span> geometryOutlineInstance<span class="token punctuation">,</span>
+  appearance<span class="token operator">:</span> appearanceOutline
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+scene<span class="token punctuation">.</span>primitives<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>primitive<span class="token punctuation">)</span>
+scene<span class="token punctuation">.</span>primitives<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>primitiveOutline<span class="token punctuation">)</span>
+</code></pre></div><hr><h3 id="corridorgeometry-走廊几何图形"><a class="header-anchor" href="#corridorgeometry-走廊几何图形" aria-hidden="true">#</a> CorridorGeometry 走廊几何图形</h3><p>贴地时高度和拔高参数会被忽略</p><p><a href="https://cesium.com/docs/cesiumjs-ref-doc/CorridorGeometry.html" target="_blank" rel="noopener noreferrer">CorridorGeometry API</a></p><div class="language-javascript"><pre><code><span class="token keyword">const</span> polylinePositions <span class="token operator">=</span> Cesium<span class="token punctuation">.</span>Cartesian3<span class="token punctuation">.</span><span class="token function">fromDegreesArrayHeights</span><span class="token punctuation">(</span>
+  lineGeojson<span class="token punctuation">.</span>geometry<span class="token punctuation">.</span>coordinates
+    <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">i</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> i<span class="token punctuation">.</span><span class="token function">concat</span><span class="token punctuation">(</span><span class="token number">2000</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">flat</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> geometry <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>CorridorGeometry</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  positions<span class="token operator">:</span> polylinePositions<span class="token punctuation">,</span>
+  width<span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+  height<span class="token operator">:</span> <span class="token number">1000</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment">// const colorAttribute = Cesium.ColorGeometryInstanceAttribute.fromColor(</span>
+<span class="token comment">//   Cesium.Color.RED</span>
+<span class="token comment">// )</span>
+<span class="token comment">// 或</span>
+<span class="token keyword">const</span> colorAttribute <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>GeometryInstanceAttribute</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  componentDatatype<span class="token operator">:</span> Cesium<span class="token punctuation">.</span>ComponentDatatype<span class="token punctuation">.</span><span class="token constant">UNSIGNED_BYTE</span><span class="token punctuation">,</span>
+  componentsPerAttribute<span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">,</span>
+  normalize<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  value<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Uint8Array</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+    Cesium<span class="token punctuation">.</span>Color<span class="token punctuation">.</span><span class="token function">floatToByte</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    Cesium<span class="token punctuation">.</span>Color<span class="token punctuation">.</span><span class="token function">floatToByte</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    <span class="token number">0</span><span class="token punctuation">,</span>
+    Cesium<span class="token punctuation">.</span>Color<span class="token punctuation">.</span><span class="token function">floatToByte</span><span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">)</span>
+  <span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> attributes <span class="token operator">=</span> <span class="token punctuation">{</span>
+  color<span class="token operator">:</span> colorAttribute
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> geometryInstance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>GeometryInstance</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  geometry<span class="token operator">:</span> geometry<span class="token punctuation">,</span>
+  attributes
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> appearance <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>PerInstanceColorAppearance</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  flat<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  translucent<span class="token operator">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token comment">// const appearance = new Cesium.EllipsoidSurfaceAppearance({</span>
+<span class="token comment">//   material: Cesium.Material.fromType(&#39;Color&#39;, { color: Cesium.Color.RED }),</span>
+<span class="token comment">//   translucent: true</span>
+<span class="token comment">// })</span>
+<span class="token comment">// const appearance = new Cesium.EllipsoidSurfaceAppearance({</span>
+<span class="token comment">//   material: Cesium.Material.fromType(&#39;Image&#39;, {</span>
+<span class="token comment">//     image:</span>
+<span class="token comment">//       &#39;data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAD9MAAABACAMAAAAk00bAAAAAVFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////8wXzyWAAAAHHRSTlMA5t0H2NPNxK+jiXtcT0MsIhkTDpc3arq5bJg4Lv4jUwAABapJREFUeNrszLcBwgAQBEEk4Z0cnv77pAA9H38wF9/O6u/OTbLj8k8ikUgkEolEIpFIJBKphPRtk2zfLQMSiUQikUgkEolEIpFIFaRxk2TbKShIJBKJRCKRSCQSiUQiFZC6Z5K1fVCQSCQSiUQikUgkEolEqiB9mmSXICCRSCQSiUQikUgkEolUQXpn2SkISCQSiUQikUgkEolEIlWQrll2CAISiUQikUgkEolEIpFIFaRhnWS7eRmQSCQSiUQikUgkEolEqiDNuyRbD0FBIpFIJBKJRCKRSCQSqYJ0aJJdg4BEIpFIJBKJRCKRSCRSBemUZY8gIJFIJBKJRCKRSCQSiVRBumTZLQhIJBKJRCKRSCQSiUQiVZD6Nsle3TIgkUgkEolEIpFIJBKJVEGatkm2GYOCRCKRSCQSiUQikUgkUgGp2ydZew8KEolEIpFIJBKJRCKRSBWkY5PsHASkHzvzbYQwAARAcJDwQh5P/31SgH4+/mAvvyWRSCQSiUQikUgkEqmCdMu2azCQSCQSiUQikUgkEolEqiD9mmQ7t9uBRCKRSCQSiUQikUgkUgVpPiTbcQkOEolEIpFIJBKJRCKRSAWk9pVszRgcJBKJRCKRSCQSiUQikSpI311SHwwkEolEIpFIJBKJRCKRKkifbOuCgUQikUgkEolEIpFIJFIFaci2SzCQSCQSiUQikUgkEolEqiBN+2Q7rduBRCKRSCQSiUQikUgkUgVpPSXbfgoOEolEIpFIJBKJRCKRSBWkyy5pCAYSiUQikUgkEolEIpFIFaQu257BQCKRSCQSiUQikUgkEqmC1GfbPRhIJBKJRCKRSCQSiUQiVZDGJtne7XYgkUgkEolEIpFIJBKJVEFajsl2mIODRCKRSCQSiUQikUgkUgGpPSdb8wgOEunP3h3kIAgEURSMgBJEAcWg9z+pB2jtBRt6UbP+r8IBmAyJRCKRSCQSiUQikSpI11Nybj8CEolEIpFIJBKJRCKRSCWk47+ARCKRSCQSiUQikUgk0n+p8p8CJBKJRCKRSCQSiUQikRKp8I1+EolEIpFIJBKJRCKRSPukuUnCdxv2JBKJRCKRSCQSiUQikYpIh7+QTyKRSCQSiUQikUgkEmmfNGbhFuYkEolEIpFIJBKJRCKRqkhDFk5hTiKRSCQSiUQikUgkEqmItPZJ1y1hTyKRSCQSiUQikUgkEqmItHRJ2K9hTyKRSCQSiUQikUgkEqmINJ2SM8Q9iUQikUgkEolEIpFIpCLSloVjmJNIJBKJRCKRSCQSiUSqIr2y8B7mJBKJRCKRSCQSiUQikYpI7SfpmjnsSSQSiUQikUgkEolEIhWRHuckvDzDnkQifdmZcyMGASAIggXo40cC9OSfqAK4qrPP6LVnm0QikUgkEolEIpGKSGebHB9d6EkkEolEIpFIJBKJRCIVkaYm2RB7EolEIpFIJBKJRCKRSEWkITtOISeRSCQSiUQikUgkEolUROoeya89Q08ikUgkEolEIpFIJBKpiPS6JcfrM/QkEolEIpFIJBKJRCKRikhrmxw/XehJJBKJRCKRSCQSiUQiFZHmJtkRexKJRCKRSCQSiUQikUhFpDE7/kJOIpFIJBKJRCKRSCQSqYrUZ8cl5CQSiUQikUgkEolEIpGKSPs9+V220JNIJBKJRCKRSCQSiUQqIm2X5HjfQ08ikUgkEolEIpFIJBKpiLQ0yfrYk0gkEolEIpFIJBKJRCoivbPjGHISiUQikUgkEolEIpFIVaQjO84hJ5FIJBKJRCKRSCQSiVRE6r7Jr11DTyKRSP925hgFYBAIoihJSAhio+D9r+oBFraULd7Ufx6JRCKRSCQSiUQqIo03OX4z9CQSiUQikUgkEolEIpGKSOtOjv8TehKJRCKRSCQSiUQikUhFpH4la7EnkUgkEolEIpFIJBKJdFLasSljgbKdwNEAAAAASUVORK5CYII=&#39;</span>
+<span class="token comment">//   })</span>
+<span class="token comment">// })</span>
+
+<span class="token keyword">const</span> primitive <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Cesium<span class="token punctuation">.</span>Primitive</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  geometryInstances<span class="token operator">:</span> geometryInstance<span class="token punctuation">,</span>
+  appearance<span class="token operator">:</span> appearance
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+scene<span class="token punctuation">.</span>primitives<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span>primitive<span class="token punctuation">)</span>
+
+<span class="token comment">// 贴地显示</span>
+<span class="token comment">// const primitive = new Cesium.GroundPrimitive({</span>
+<span class="token comment">//   geometryInstances: geometryInstance,</span>
+<span class="token comment">//   appearance: appearance</span>
+<span class="token comment">// })</span>
+<span class="token comment">// scene.groundPrimitives.add(primitive)</span>
+</code></pre></div></div></div><footer class="page-footer" data-v-d36a7fda data-v-5a019cc9><div class="edit" data-v-5a019cc9><div class="edit-link" data-v-5a019cc9 data-v-fb0131f2><!----></div></div><div class="updated" data-v-5a019cc9><p class="last-updated" data-v-5a019cc9 data-v-52854a16><span class="prefix" data-v-52854a16>最后更新:</span><span class="datetime" data-v-52854a16></span></p></div></footer><div class="next-and-prev-link" data-v-d36a7fda data-v-6683615c><div class="container" data-v-6683615c><div class="prev" data-v-6683615c><!----></div><div class="next" data-v-6683615c><a class="link" href="/article/2021/cesium-polygon" data-v-6683615c><span class="text" data-v-6683615c>Cesium面相关整理</span><svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" class="icon icon-next" data-v-6683615c><path d="M19.9,12.4c0.1-0.2,0.1-0.5,0-0.8c-0.1-0.1-0.1-0.2-0.2-0.3l-7-7c-0.4-0.4-1-0.4-1.4,0s-0.4,1,0,1.4l5.3,5.3H5c-0.6,0-1,0.4-1,1s0.4,1,1,1h11.6l-5.3,5.3c-0.4,0.4-0.4,1,0,1.4c0.2,0.2,0.5,0.3,0.7,0.3s0.5-0.1,0.7-0.3l7-7C19.8,12.6,19.9,12.5,19.9,12.4z"></path></svg></a></div></div></div><!--[--><!--]--></div></main></div><!----><!--]--></div>
+    <script>__VP_HASH_MAP__ = JSON.parse("{\"index.md\":\"7d9bcb14\",\"2021_cesium-geometry.md\":\"1d1ad9d9\",\"2021_cesium-line.md\":\"44e9a1bc\",\"2021_cesium-material&appearance.md\":\"7d97c04b\",\"2021_cesium-polygon.md\":\"50819e48\",\"2021_coordinate-system.md\":\"8c3c8b03\",\"2021_index.md\":\"9287f951\",\"2021_mathematics-for-cg.md\":\"fcf9c302\",\"2022_ol-heatmap.md\":\"358485c2\"}")</script>
+    <script type="module" async src="/article/assets/app.653a9468.js"></script>
+  </body>
+</html>
